@@ -7,8 +7,8 @@ let chores = require('./choresData');
 router.get('/', (req, res) => {
   let completed = req.query.completed;
   if (completed === 'true' || completed === 'false') {
-    let fileredChores = chores.filter(item => item.completed.toString() === completed);
-    res.status(200).json(fileredChores);
+    let filteredChores = [...chores].filter(item => item.completed.toString() === completed);
+    res.status(200).json(filteredChores);
   } else {
     res.status(200).json(chores);
   }
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 //get specific chore
 router.get('/:id', checkChoreId, (req, res) => {
   if (req.id) {
-    let chore = chores.filter(item => item.id === req.id);
+    let chore = [...chores].find(item => item.id === req.id);
     res.status(200).json(chore);
   }
 })

@@ -10,10 +10,15 @@ router.get('/', (req, res) => {
   res.status(200).json(people);
 })
 
-//get specific person
+//get specific person and and list of chores for that specific person
 router.get('/:id', checkPersonId, (req, res) => {
   if (req.id) {
-    let person = people.filter(item => item.id === req.id);
+    let person = [...people].find(item => item.id === req.id);
+    let choresForThisPerson = chores.filter(item => item.assignedTo === req.id);
+    person = {
+      ...person,
+      chores: choresForThisPerson
+    }
     res.status(200).json(person);
   }
 })
