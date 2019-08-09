@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const port = process.env.PORT || 8000;
+require('dotenv').config();
 
 const server = express();
 
@@ -33,7 +34,10 @@ let people = [
 let nextId = 2;
 
 server.get('/', (req, res) => {
-  res.status(200).json('API in running');
+  res.status(200).json({
+    API: 'is running',
+    secretMessage: process.env.SECRET 
+  });
 })
 
 //get all people
