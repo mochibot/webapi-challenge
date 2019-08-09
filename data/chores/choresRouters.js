@@ -1,5 +1,4 @@
 const express = require('express');
-const { checkPersonId, checkChoreId } = require('../../middlewares/middlewares');
 const router = express.Router();
 let chores = require('./choresData');
 
@@ -53,5 +52,17 @@ router.put('/:id', checkChoreId, (req, res) => {
     }
   }
 })
+
+//custom middleware
+function checkChoreId(req, res, next) {
+  let id = req.params.id;
+  let chore = chores.filter(item => item.id === Number(id));
+  if (chore.length === 0) {
+    res.status(404).json({ error: 'No chore with such ID exists'});
+  } else {
+    req.id = Number(id);
+    next();
+  }
+}
 
 module.exports = router;

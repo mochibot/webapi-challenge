@@ -1,5 +1,4 @@
 const express = require('express');
-const { checkPersonId } = require('../../middlewares/middlewares');
 const router = express.Router();
 let people = require('./peopleData');
 let chores = require('../chores/choresData');
@@ -30,9 +29,6 @@ router.post('/', (req, res) => {
     res.status(201).json(people);
   }
 })
-
-
-
 
 //add a new chore for a specific person
 router.post('/:id', checkPersonId, (req, res) => {
@@ -79,7 +75,7 @@ router.put('/:id', checkPersonId, (req, res) => {
   }  
 })
 
-//misc function
+//misc function and custom middleware
 
 function getNextPeopleId() {
   return nextUserId++;
@@ -88,5 +84,16 @@ function getNextPeopleId() {
 function getNextChoreId() {
   return nextChoreId++;
 };
+
+function checkPersonId(req, res, next) {
+  let id = req.params.id;
+  let person = people.filter(item => item.id === Number(id));
+  if (person.length === 0) {
+    res.status(404).json({ error: 'No person with such ID exists'});
+  } else {
+    req.id = Number(id);
+    next();
+  }
+}
 
 module.exports = router;
