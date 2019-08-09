@@ -40,13 +40,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+I learned about middlewares and routing. Routing makes it easy to build a RESTful API as it helps to break an application into smaller parts based on the route. We can select which request handler is executed based on the URL and the HTTP method. See next question about middlewares.
+
 - [ ] What is Express Middleware?
+
+Express Middlewares are essentially an array of functions that take the response objects, and either return the response or call the next middleware. They may change the request or response, but do not have to. This becomes handy especially when we want to validate a request.
 
 - [ ] How can a client send data to an API?
 
+Client can send data to an API via route parameters, key/value pairs inside the query string, or as request body.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+API can return HTTP status code 200 (OK) or 201 (created). 
+
 - [ ] What Express feature can we use to partition an application into sub-applications?
+
+Routing.
 
 ## Minimum Viable Product
 
